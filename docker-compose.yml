@@ -1,0 +1,23 @@
+---
+version: '3.8'
+services:
+
+  yugabytedb:
+    build:
+      context: docker
+      args:
+        POSTGRES_DB: example
+        POSTGRES_USER: joe
+        POSTGRES_PASSWORD: doe
+    image: yugabytedb-example:latest
+    container_name: yugabytedb
+    hostname: yugabytedb
+    environment:
+      - POSTGRES_DB=example
+      - POSTGRES_USER=joe
+      - POSTGRES_PASSWORD=doe
+    ports:
+      - 5433:5433
+      - 7000:7000
+      - 9000:9000
+      - 9042:9042

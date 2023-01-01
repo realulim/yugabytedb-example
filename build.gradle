@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.6.14'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.avast.gradle.docker-compose' version '0.15.2'
+    id 'io.freefair.lombok' version '6.4.1'
+}
+
+description = 'Example Yugabyte App'
+
+bootJar {
+    archiveBaseName = 'example-app.jar'
+}
+
+bootRun {
+    environment SPRING_PROFILES_ACTIVE: project.hasProperty('profiles') ? profiles : 'dev'
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url "https://nexus.isys.de/repository/jstage-maven-group/" }
+}
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'commons-io:commons-io:2.11.0'
+
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.3'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
+    implementation 'com.yugabyte:java-driver-core:4.6.0-yb-11'
+    implementation 'org.springframework.data:spring-data-cassandra:4.0.0'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'com.yugabyte:jdbc-yugabytedb:42.3.4'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
+    testCompileOnly 'org.springframework.data:spring-data-cassandra:4.0.0'
+    testImplementation 'com.konghq:unirest-java:3.13.6'
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+bootRun {
+    environment SPRING_PROFILES_ACTIVE: project.hasProperty('profiles') ? profiles : 'dev'
+}
