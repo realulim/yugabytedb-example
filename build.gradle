@@ -41,11 +41,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'commons-io:commons-io:2.11.0'
-
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.3'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
     implementation 'com.yugabyte:java-driver-core:4.6.0-yb-11'
     implementation 'org.springframework.data:spring-data-cassandra:4.0.0'
@@ -54,13 +49,6 @@ dependencies {
 
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'com.yugabyte:jdbc-yugabytedb:42.3.4'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
-    testCompileOnly 'org.springframework.data:spring-data-cassandra:4.0.0'
-    testImplementation 'com.konghq:unirest-java:3.13.6'
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
