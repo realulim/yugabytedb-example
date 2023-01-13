@@ -9,12 +9,8 @@ import org.springframework.context.event.EventListener;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
-@AllArgsConstructor
 public class DataPreloader {
 
     @Autowired
@@ -22,6 +18,11 @@ public class DataPreloader {
 
     @Autowired
     private final ApiKeyService apiKeyService;
+
+    public DataPreloader(CqlSession session, ApiKeyService apiKeyService) {
+        this.session = session;
+        this.apiKeyService = apiKeyService;
+    }
 
     @EventListener(ContextRefreshedEvent.class)
     public void doWheneverContextIsRefreshedOrInitialized() throws IOException {
@@ -36,7 +37,7 @@ public class DataPreloader {
         String keyspace = "example";
         String createKeyspace = "CREATE KEYSPACE IF NOT EXISTS " + keyspace + ";";
         session.execute(createKeyspace);
-        log.info("Created Keyspace: " + keyspace);
+        Logger.getAnonymousLogger().info("Created Keyspace: " + keyspace);
     }
 
     private void createStandardApiKey() {

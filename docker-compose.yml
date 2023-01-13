@@ -10,8 +10,7 @@ services:
         POSTGRES_USER: joe
         POSTGRES_PASSWORD: doe
     image: yugabytedb-example:latest
-    container_name: yugabytedb
-    hostname: yugabytedb
+    container_name: yugabytedb-example
     environment:
       - POSTGRES_DB=example
       - POSTGRES_USER=joe

@@ -3,7 +3,6 @@ plugins {
     id 'org.springframework.boot' version '2.6.14'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'com.avast.gradle.docker-compose' version '0.15.2'
-    id 'io.freefair.lombok' version '6.4.1'
 }
 
 description = 'Example Yugabyte App'
@@ -45,15 +44,12 @@ dependencies {
     implementation 'com.yugabyte:java-driver-core:4.6.0-yb-11'
     implementation 'org.springframework.data:spring-data-cassandra:4.0.0'
 
-    compileOnly 'org.projectlombok:lombok'
-
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'com.yugabyte:jdbc-yugabytedb:42.3.4'
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    annotationProcessor 'org.projectlombok:lombok'
 }
 
 bootRun {
