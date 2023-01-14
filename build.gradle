@@ -29,8 +29,9 @@ configurations {
 }
 
 repositories {
-    maven { url "https://nexus.isys.de/repository/jstage-maven-group/" }
+    mavenCentral()
 }
+
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 compileJava.options.encoding = "UTF-8"
