@@ -2,15 +2,17 @@ package example;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+@Component
 public class DataPreloader {
 
     @Autowired
@@ -26,11 +28,9 @@ public class DataPreloader {
 
     @EventListener(ContextRefreshedEvent.class)
     public void doWheneverContextIsRefreshedOrInitialized() throws IOException {
+        createKeyspace();
 
-       createKeyspace();
-
-       createStandardApiKey();
-
+        createStandardApiKey();
     }
 
     private void createKeyspace() {
@@ -41,8 +41,10 @@ public class DataPreloader {
     }
 
     private void createStandardApiKey() {
-        String apiKeyHash = "Some Hash";
-        apiKeyService.create(UUID.randomUUID(), apiKeyHash);
+        String apiKeyHash = RandomStringUtils.randomAlphabetic(12);
+        ApiKey created = apiKeyService.create(UUID.randomUUID(), apiKeyHash);
+        Logger.getAnonymousLogger().info("Created ApiKey: " + created);
+        Logger.getAnonymousLogger().info("ApiKey found in DB: " + apiKeyService.getById(created.getId()).isPresent());
     }
 
 }

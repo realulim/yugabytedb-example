@@ -69,4 +69,9 @@ public class ApiKey implements Serializable {
         this.keyHash = keyHash;
     }
 
+    @Override
+    public String toString() {
+        return "ApiKey{" + "id=" + id + ", keyHash=" + keyHash + '}';
+    }
+
 }
