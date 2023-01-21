@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.TransactionManager;
 
 import java.net.InetSocketAddress;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -66,9 +67,11 @@ public class YugabyteConfiguration {
                 .build();
     }
 
-//    @Bean
-//    public TransactionManager transactionManager(DataSource dataSource) {
-//        return new YugabyteTransactionManager(dataSource);
-//    }
+    @Bean
+    public TransactionManager transactionManager(DataSource dataSource) {
+        TransactionManager tm = new YugabyteTransactionManager(dataSource);
+        Logger.getAnonymousLogger().info("Using TransactionManager: " + tm.getClass().getName());
+        return tm;
+    }
 
 }
